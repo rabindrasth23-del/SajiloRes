@@ -184,7 +184,7 @@ export default function GoogleMap({ incidents, selectedId, onSelect }: GoogleMap
                       {i.status.replace("_", " ")}
                     </div>
                     <div className="border-t border-mist pt-2">
-                       <button onClick={() => onSelect?.(i.id)} className="w-full text-teal text-xs font-medium hover:underline block text-center">
+                       <button onClick={(e) => { e.preventDefault(); setActivePopupId(null); onSelect?.(i.id); }} className="w-full text-teal text-xs font-medium hover:underline block text-center">
                          Open details
                        </button>
                     </div>

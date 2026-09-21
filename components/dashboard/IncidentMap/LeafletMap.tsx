@@ -190,7 +190,20 @@ export default function LeafletMap({ incidents, selectedId, onSelect }: MapCompo
                   {i.status.replace("_", " ")}
                 </div>
                 <div className="border-t border-mist pt-2">
-                   <button onClick={() => onSelect?.(i.id)} className="w-full text-teal text-xs font-medium hover:underline block text-center">
+                   <button 
+                     onClick={(e) => { 
+                       e.preventDefault(); 
+                       onSelect?.(i.id);
+                       // Leaflet's Popup can be closed by finding the closest popup container or using the map instance
+                       const mapContainer = document.querySelector('.leaflet-container');
+                       if (mapContainer) {
+                          // @ts-expect-error - internal leaflet prop
+                          const map = mapContainer._leaflet_map;
+                          if (map) map.closePopup();
+                       }
+                     }} 
+                     className="w-full text-teal text-xs font-medium hover:underline block text-center"
+                   >
                      Open details
                    </button>
                 </div>
