@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import clsx from "clsx";
 
 interface SkeletonLoaderProps {
@@ -6,11 +7,6 @@ interface SkeletonLoaderProps {
 
 export function SkeletonLoader({ className }: SkeletonLoaderProps) {
   return (
-    <div 
-      className={clsx(
-        "animate-pulse bg-mist rounded-md",
-        className
-      )} 
-    />
+    <Skeleton className={clsx("w-full h-24", className)} />
   );
 }

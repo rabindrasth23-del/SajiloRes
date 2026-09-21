@@ -1,116 +1,93 @@
-import Link from "next/link";
-import { BrandMark } from "@/components/BrandMark";
-import { ConnectionBadge } from "@/components/ConnectionBadge";
-import { TriageBadge } from "@/components/TriageBadge";
-import { StatusBadge } from "@/components/StatusBadge";
-import { EmptyState } from "@/components/EmptyState";
+"use client";
+
+import { useState } from "react";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
-import { DemoModeBanner } from "@/components/DemoModeBanner";
+import { IncidentCard } from "@/components/IncidentCard";
+import { AgentRecommendation } from "@/components/AgentRecommendation";
+import { MetricsRow } from "@/components/MetricsRow";
+import { TriageBadge } from "@/components/TriageBadge";
+import { Button } from "@/components/ui/button";
 
 export default function DevComponentsPage() {
-  if (process.env.NODE_ENV === "production") {
-    return (
-      <div className="min-h-screen bg-cloud flex items-center justify-center p-6">
-        <h1 className="text-4xl font-bold text-ink">404 - Not Found</h1>
-      </div>
-    );
-  }
+  const [isAgentOpen, setIsAgentOpen] = useState(false);
+  const [selectedIncident, setSelectedIncident] = useState<string | undefined>("inc-2");
 
   return (
-    <div className="min-h-screen bg-cloud text-ink p-8">
-      <header className="mb-10">
-        <h1 className="text-3xl font-bold mb-2">Component Playground</h1>
-        <p className="text-ink/70">A showcase of all shared components in various states.</p>
-        <Link href="/" className="text-cyan hover:underline text-sm mt-4 inline-block">
-          &larr; Back to Home
-        </Link>
-      </header>
-
-      <div className="space-y-12 max-w-4xl">
+    <div className="p-8 max-w-6xl mx-auto space-y-12">
+      <div>
+        <h1 className="text-3xl font-bold mb-8">Component Testing</h1>
         
-        {/* BrandMark */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">BrandMark</h2>
-          <div className="flex gap-8 items-center bg-navy p-4 rounded-lg">
-            <BrandMark />
-            <BrandMark className="text-white" />
-          </div>
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4 border-b pb-2">Metrics Row</h2>
+          <MetricsRow />
         </section>
 
-        {/* ConnectionBadge */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">ConnectionBadge</h2>
-          <div className="flex gap-4 items-center">
-            <ConnectionBadge />
-            <p className="text-sm text-ink/50 italic">(Simulate offline via dev tools to see Offline state)</p>
-          </div>
-        </section>
-
-        {/* TriageBadge */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">TriageBadge</h2>
-          <div className="flex flex-wrap gap-4 mb-6">
-            <TriageBadge level="immediate" />
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4 border-b pb-2">Triage Badges</h2>
+          <div className="flex gap-4">
+            <TriageBadge level="immediate" active />
             <TriageBadge level="delayed" />
             <TriageBadge level="minor" />
             <TriageBadge level="unknown" />
           </div>
-          <h3 className="text-sm font-semibold mb-3">Active (Pulse for Immediate only)</h3>
-          <div className="flex flex-wrap gap-4">
-            <TriageBadge level="immediate" active />
-            <TriageBadge level="delayed" active />
+        </section>
+
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4 border-b pb-2">Incident Cards</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <IncidentCard 
+              id="inc-1"
+              title="Building Collapse at Durbar Square" 
+              location="Kathmandu, Ward 12"
+              timeAgo="2m ago"
+              triageLevel="immediate"
+              active={true}
+              selected={selectedIncident === "inc-1"}
+              onClick={setSelectedIncident}
+            />
+            <IncidentCard 
+              id="inc-2"
+              title="Bridge structural damage reported" 
+              location="Patan, Ward 3"
+              timeAgo="15m ago"
+              triageLevel="delayed"
+              selected={selectedIncident === "inc-2"}
+              onClick={setSelectedIncident}
+            />
+            <IncidentCard 
+              id="inc-3"
+              title="Minor flooding in residential area" 
+              location="Bhaktapur, Ward 5"
+              timeAgo="1h ago"
+              triageLevel="minor"
+              selected={selectedIncident === "inc-3"}
+              onClick={setSelectedIncident}
+            />
           </div>
         </section>
 
-        {/* StatusBadge */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">StatusBadge</h2>
-          <div className="flex flex-wrap gap-4">
-            <StatusBadge status="new" />
-            <StatusBadge status="reviewed" />
-            <StatusBadge status="assigned" />
-            <StatusBadge status="in_progress" />
-            <StatusBadge status="resolved" />
-            <StatusBadge status="closed" />
-            <StatusBadge status="duplicate" />
-            <StatusBadge status="false_report" />
-            <StatusBadge status="escalated" />
-            <StatusBadge status="info_needed" />
-            <StatusBadge status="rejected" />
-            <StatusBadge status="archived" />
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4 border-b pb-2">Skeleton Loader</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <SkeletonLoader />
+            <SkeletonLoader />
+            <SkeletonLoader />
           </div>
         </section>
 
-        {/* EmptyState */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">EmptyState</h2>
-          <EmptyState 
-            title="No Incidents Found"
-            description="There are currently no incidents matching your filter criteria. Try adjusting the filters or clearing them."
-          />
-        </section>
-
-        {/* SkeletonLoader */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">SkeletonLoader</h2>
-          <div className="space-y-4 max-w-md">
-            <div className="flex gap-4">
-              <SkeletonLoader className="w-12 h-12 rounded-full" />
-              <div className="space-y-2 flex-1 py-1">
-                <SkeletonLoader className="h-4 w-3/4" />
-                <SkeletonLoader className="h-4 w-1/2" />
-              </div>
-            </div>
-            <SkeletonLoader className="h-24 w-full" />
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4 border-b pb-2">Agent Recommendation</h2>
+          <Button onClick={() => setIsAgentOpen(true)} className="mb-4">
+            Toggle Agent Panel
+          </Button>
+          <div className="w-full lg:w-1/3">
+            <AgentRecommendation 
+              isOpen={isAgentOpen} 
+              onOpenChange={setIsAgentOpen}
+              recommendation="Based on standard operating procedures, dispatch nearest medical unit to coordinate with SAR team."
+            />
           </div>
         </section>
-
-        {/* DemoModeBanner */}
-        <section className="bg-white p-6 rounded-xl shadow-sm border border-mist">
-          <h2 className="text-xl font-semibold mb-6 pb-2 border-b border-mist">DemoModeBanner</h2>
-          <DemoModeBanner />
-        </section>
-
       </div>
     </div>
   );

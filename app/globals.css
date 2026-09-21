@@ -16,6 +16,17 @@
 
   --background: var(--cloud);
   --foreground: var(--ink);
+  
+  /* shadcn mappings */
+  --primary: var(--teal);
+  --primary-foreground: var(--white);
+  --border: var(--mist);
+  --input: var(--mist);
+  --destructive: var(--immediate);
+  --destructive-foreground: var(--white);
+  --ring: var(--cyan);
+  --secondary: var(--mist);
+  --muted: color-mix(in srgb, var(--mist) 50%, var(--cloud));
 }
 
 @theme inline {
@@ -37,6 +48,20 @@
   
   --font-sans: var(--font-inter), var(--font-noto-sans-devanagari), sans-serif;
   --font-heading: var(--font-plus-jakarta), sans-serif;
+
+  /* shadcn @theme mappings */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
 }
 
 body {
