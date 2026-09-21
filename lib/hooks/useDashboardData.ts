@@ -138,6 +138,8 @@ export function useDashboardData(): DashboardData {
 
     fetchData();
 
+    let currentChannelStatus = "offline";
+
     // Setup Realtime Subscription
     const channel = supabase
       .channel("dashboard_changes")
@@ -156,10 +158,13 @@ export function useDashboardData(): DashboardData {
       .subscribe((status) => {
         if (mounted) {
           if (status === "SUBSCRIBED") {
+            currentChannelStatus = "online";
             setChannelStatus("online");
           } else if (status === "TIMED_OUT" || status === "CHANNEL_ERROR") {
+            currentChannelStatus = "error";
             setChannelStatus("error");
           } else {
+            currentChannelStatus = "offline";
             setChannelStatus("offline");
           }
         }
@@ -167,7 +172,7 @@ export function useDashboardData(): DashboardData {
 
     // Setup polling fallback when channel drops
     const pollInterval = setInterval(() => {
-      if (channelStatus !== "online") {
+      if (currentChannelStatus !== "online") {
         fetchData(); // fetchData has isPollingRef to prevent overlap
       }
     }, 15000);
@@ -177,7 +182,7 @@ export function useDashboardData(): DashboardData {
       clearInterval(pollInterval);
       supabase.removeChannel(channel);
     };
-  }, [channelStatus]);
+  }, []);
 
   // Expose state and channel status together
   return { ...state, channelStatus };
