@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "bundleName": ".next/static/chunks/1uqjafc38bnqx.js",
+      "totalBytes": 313,
+      "mappedBytes": 0,
+      "unmappedBytes": 270,
+      "eolBytes": 2,
+      "sourceMapCommentBytes": 41,
+      "files": {
+        "[sourceMappingURL]": {
+          "size": 41
+        },
+        "[unmapped]": {
+          "size": 270
+        },
+        "[EOLs]": {
+          "size": 2
+        }
+      }
+    }
+  ]
+}

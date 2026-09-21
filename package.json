@@ -4,28 +4,55 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:test": "cross-env AI_TIMEOUT_MS=2000 AI_CLAIM_STALE_SECONDS=2 next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:2a": "node --env-file=.env.local scripts/test-api.mjs",
+    "test:2a:att": "node --env-file=.env.local scripts/test-attachment.mjs",
+    "test:2b": "node --env-file=.env.local scripts/test-staff.mjs",
+    "test:2c": "node --env-file=.env.local scripts/test-2c.mjs",
+    "test:3a": "node --env-file=.env.local scripts/test-3a.mjs",
+    "test:all": "node --env-file=.env.local scripts/test-api.mjs && node --env-file=.env.local scripts/test-attachment.mjs && node --env-file=.env.local scripts/test-staff.mjs && node --env-file=.env.local scripts/test-2c.mjs && node --env-file=.env.local scripts/test-3a.mjs",
+    "test:unit": "vitest run"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@supabase/supabase-js": "^2.116.0",
+    "@types/leaflet": "^1.9.22",
     "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "gsap": "^3.15.0",
+    "leaflet": "^1.9.4",
     "lucide-react": "^1.47.0",
     "next": "16.3.5",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "tailwind-merge": "^3.7.0",
+    "react-leaflet": "^5.0.0",
+    "server-only": "^0.0.1",
+    "uuid": "^14.0.2",
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@next/bundle-analyzer": "^16.3.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/uuid": "^10.0.0",
+    "axe-playwright": "^2.2.2",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
+    "fake-indexeddb": "^6.2.5",
+    "jsdom": "^29.1.1",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.63.0",
+    "pngjs": "^7.0.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
   }
 }

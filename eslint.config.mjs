@@ -13,6 +13,11 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      "react/no-danger": "error"
+    }
+  }
 ]);
 
 export default eslintConfig;
