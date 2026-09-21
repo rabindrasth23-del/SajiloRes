@@ -183,7 +183,7 @@ export default function GoogleMap({ incidents, selectedId }: GoogleMapProps) {
                       {i.status.replace("_", " ")}
                     </div>
                     <div className="border-t border-mist pt-2">
-                       <Link href={`/incident/${i.id}`} className="text-teal text-xs font-medium hover:underline block text-center">
+                       <Link href={`/dashboard?selected=${i.id}&tab=agent`} className="text-teal text-xs font-medium hover:underline block text-center">
                          Open details
                        </Link>
                     </div>
