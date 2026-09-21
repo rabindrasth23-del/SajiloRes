@@ -2,7 +2,7 @@ export type QueuedReport = {
   client_id: string;
   type: string;
   description: string;
-  location_source: "gps" | "typed" | "none";
+  location_source: "gps" | "typed" | "none" | "map_selection";
   lat?: number;
   lng?: number;
   location_text?: string;
