@@ -181,7 +181,7 @@ async function performSync() {
   try {
     const queue = await getQueue();
     for (const report of queue) {
-      if (report.status === "failed") continue; // Non-retryable
+      // Allow previously 'failed' reports to retry since we fixed the payload schema bug
       if (report.retryCount >= 5) continue; // Max retries hit
       
       const controller = new AbortController();
@@ -193,11 +193,11 @@ async function performSync() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             client_id: report.client_id,
-            type: report.type,
-            description: report.description,
+            incident_type: report.type,
+            raw_text: report.description,
             location_source: report.location_source,
-            lat: report.lat,
-            lng: report.lng,
+            latitude: report.lat,
+            longitude: report.lng,
             location_text: report.location_text,
             attachment_paths: report.attachment_paths,
             offline_created: true
