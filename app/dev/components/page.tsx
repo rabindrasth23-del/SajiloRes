@@ -84,7 +84,6 @@ export default function DevComponentsPage() {
             <AgentRecommendation 
               isOpen={isAgentOpen} 
               onOpenChange={setIsAgentOpen}
-              recommendation="Based on standard operating procedures, dispatch nearest medical unit to coordinate with SAR team."
             />
           </div>
         </section>
