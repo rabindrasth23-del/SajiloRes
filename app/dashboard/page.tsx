@@ -4,7 +4,7 @@ import { Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDashboardContext } from "./DashboardContext";
 import { IncidentQueue } from "@/components/dashboard/IncidentQueue";
-import { MapLayer } from "@/components/dashboard/MapLayer";
+import { IncidentMap } from "@/components/dashboard/IncidentMap";
 import { AgentPanel } from "@/components/dashboard/AgentPanel";
 import { MetricsRow } from "@/components/dashboard/MetricsRow";
 
@@ -75,7 +75,7 @@ function DashboardContent() {
 
         {/* Map Column: Mobile tab "map" or Desktop always visible */}
         <div className={`${currentTab === "map" ? "block" : "hidden"} md:block w-full md:w-[44%] border-r border-mist flex-shrink-0 h-[calc(100%-3.5rem-env(safe-area-inset-bottom))] md:h-full relative overflow-hidden bg-mist`}>
-          <MapLayer incidents={incidents} selectedId={selectedIncidentId} />
+          <IncidentMap incidents={incidents} selectedId={selectedIncidentId} />
         </div>
         
         {/* Agent Panel Column: Mobile tab "agent" or Desktop always visible */}

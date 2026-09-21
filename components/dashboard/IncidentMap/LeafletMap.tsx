@@ -124,7 +124,7 @@ function SelectionFlyTo({ incidents, selectedId }: { incidents: any[], selectedI
   return null;
 }
 
-export default function MapComponent({ incidents, selectedId }: MapComponentProps) {
+export default function LeafletMap({ incidents, selectedId }: MapComponentProps) {
   const defaultCenter: [number, number] = [27.7172, 85.3240];
   const noLocationCount = incidents.filter(i => !i.latitude || !i.longitude).length;
 
