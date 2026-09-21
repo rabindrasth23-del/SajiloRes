@@ -19,6 +19,7 @@ interface IncidentMapProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   incidents: any[];
   selectedId: string | null;
+  onSelect?: (id: string | null) => void;
 }
 
 class MapErrorBoundary extends React.Component<{ children: React.ReactNode, onFallback?: () => void }, { hasError: boolean }> {

@@ -98,9 +98,10 @@ interface GoogleMapProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   incidents: any[];
   selectedId: string | null;
+  onSelect?: (id: string | null) => void;
 }
 
-export default function GoogleMap({ incidents, selectedId }: GoogleMapProps) {
+export default function GoogleMap({ incidents, selectedId, onSelect }: GoogleMapProps) {
   const [mapTypeId, setMapTypeId] = useState<string>("roadmap");
   const defaultCenter = { lat: 27.7172, lng: 85.3240 };
   const noLocationCount = incidents.filter(i => !i.latitude || !i.longitude).length;
@@ -183,9 +184,9 @@ export default function GoogleMap({ incidents, selectedId }: GoogleMapProps) {
                       {i.status.replace("_", " ")}
                     </div>
                     <div className="border-t border-mist pt-2">
-                       <Link href={`/dashboard?selected=${i.id}&tab=agent`} className="text-teal text-xs font-medium hover:underline block text-center">
+                       <button onClick={() => onSelect?.(i.id)} className="w-full text-teal text-xs font-medium hover:underline block text-center">
                          Open details
-                       </Link>
+                       </button>
                     </div>
                   </div>
                 </InfoWindow>

@@ -108,6 +108,7 @@ interface MapComponentProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   incidents: any[];
   selectedId: string | null;
+  onSelect?: (id: string | null) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -124,7 +125,7 @@ function SelectionFlyTo({ incidents, selectedId }: { incidents: any[], selectedI
   return null;
 }
 
-export default function LeafletMap({ incidents, selectedId }: MapComponentProps) {
+export default function LeafletMap({ incidents, selectedId, onSelect }: MapComponentProps) {
   const defaultCenter: [number, number] = [27.7172, 85.3240];
   const noLocationCount = incidents.filter(i => !i.latitude || !i.longitude).length;
 
@@ -189,9 +190,9 @@ export default function LeafletMap({ incidents, selectedId }: MapComponentProps)
                   {i.status.replace("_", " ")}
                 </div>
                 <div className="border-t border-mist pt-2">
-                   <Link href={`/dashboard?selected=${i.id}&tab=agent`} className="text-teal text-xs font-medium hover:underline block text-center">
+                   <button onClick={() => onSelect?.(i.id)} className="w-full text-teal text-xs font-medium hover:underline block text-center">
                      Open details
-                   </Link>
+                   </button>
                 </div>
               </Popup>
             </Marker>
